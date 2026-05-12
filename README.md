@@ -9,6 +9,8 @@ FOSS stack: three.js (MIT) + web-ifc (MPL-2.0). Built and maintained by Empiricu
 
 **ICit — Keyboard Shortcuts**
 
+it is not by accident that these look familiar to Blender Users
+
 **Navigation**
 | Key | Action |
 |---|---|
