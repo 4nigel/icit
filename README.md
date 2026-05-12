@@ -5,7 +5,9 @@ Built for building professinals working on small to medium sized projects — se
 
 Single HTML file, runs offline from a USB stick or a locked-down government computer via file://. No server, no login, no subscription.
 
-FOSS stack: three.js (MIT) + web-ifc (MPL-2.0). Built and maintained by Nigel with enormous help from Claude!
+FOSS stack: three.js (MIT) + web-ifc (MPL-2.0). Built and maintained by Nigel with ENORMOUS help from Claude!
+
+note: Enormous means Claude did most of the work and Nigel did 'bugger all' (that means not much:) )
 
 **ICit — Keyboard Shortcuts**
 
