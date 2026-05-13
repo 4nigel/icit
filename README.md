@@ -1,4 +1,7 @@
 # ICit - a browser viewer-extractor for Ifc
+
+I have added edges and cut edges
+
 ICit (i see it!) — drop an IFC, OBJ, STL, PLY, or glTF file onto the page and your building model loads instantly, no install, no internet, no data leaving your machine.
 
 Built for building professinals working on small to medium sized projects — select elements by IFC class, export Psets and data/quantities to CSV for cost planning and compliance review, render shadow studies at up to 4K.
