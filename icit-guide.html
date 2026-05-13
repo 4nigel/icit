@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICit — User Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --amber:    #e8a825;
+    --amber2:   #f0c050;
+    --bg:       #111213;
+    --bg2:      #181a1b;
+    --bg3:      #1f2122;
+    --border:   #2a2c2e;
+    --text:     #d8d4cc;
+    --muted:    #787470;
+    --dim:      #4a4642;
+    --red:      #c05040;
+    --green:    #5a9060;
+    --blue:     #4a7ab5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 13px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    line-height: 1.55;
+    padding: 28px 32px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--amber);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+  .masthead-left { display: flex; align-items: baseline; gap: 14px; }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--amber);
+    text-transform: uppercase;
+  }
+  .version {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .brand {
+    font-size: 10px;
+    color: var(--dim);
+    font-style: italic;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── GRID LAYOUT ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .grid-wide {
+    margin-bottom: 12px;
+  }
+  .span2 { grid-column: span 2; }
+
+  /* ── SECTION CARDS ── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 11px 13px;
+  }
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    margin-bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── KEYBOARD SHORTCUTS TABLE ── */
+  .kb-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3px 10px;
+    align-items: baseline;
+  }
+  .kb { 
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 1px 5px;
+    color: var(--amber2);
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .kb-desc {
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .kb-group {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+    grid-column: span 2;
+    margin-top: 6px;
+    margin-bottom: 1px;
+    padding-top: 5px;
+    border-top: 1px solid var(--border);
+  }
+  .kb-group:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+
+  /* ── INLINE DEFINITIONS ── */
+  .def-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 10px;
+    align-items: baseline;
+  }
+  .def-term {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+  .def-desc {
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .def-sep {
+    grid-column: span 2;
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+
+  /* ── WORKFLOW STEPS ── */
+  .steps { list-style: none; counter-reset: step; }
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 9px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+  .steps li::before {
+    content: counter(step);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--bg);
+    background: var(--amber);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── PROSE ── */
+  p { font-size: 11px; line-height: 1.55; margin-bottom: 6px; }
+  p:last-child { margin-bottom: 0; }
+
+  .hi  { color: var(--amber2); font-weight: 400; }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--amber); }
+  .muted { color: var(--muted); font-size: 10px; }
+
+  /* ── ICON BADGE ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 10px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  /* ── PROVENANCE TABLE ── */
+  .prov-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .prov-table th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    text-align: left;
+    padding: 3px 8px 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .prov-table td {
+    padding: 4px 8px 4px 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.4;
+  }
+  .prov-table tr:last-child td { border-bottom: none; }
+  .tag-ifc  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--amber); }
+  .tag-calc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green); }
+
+  /* ── MOUSE TABLE ── */
+  .mouse-row { display: flex; gap: 8px; margin-bottom: 4px; align-items: baseline; }
+  .mouse-btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 3px;
+    padding: 1px 5px; color: var(--blue); white-space: nowrap; min-width: 52px;
+  }
+  .mouse-desc { font-size: 11px; color: var(--text); }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+    padding-top: 9px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-left { font-size: 10px; color: var(--dim); font-style: italic; }
+  .footer-right { font-size: 10px; color: var(--dim); font-family: 'JetBrains Mono', monospace; }
+
+  @media print {
+    body { background: white; color: #111; padding: 16px 20px; }
+    .card { background: #f8f8f8; border-color: #ccc; }
+    .kb { background: #eee; border-color: #bbb; color: #333; }
+    :root {
+      --amber: #b07010; --amber2: #b07010; --bg: white; --bg2: #f5f5f5;
+      --bg3: #eee; --border: #ccc; --text: #222; --muted: #666; --dim: #999;
+      --green: #3a7040; --blue: #2a5a95;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-left">
+    <div class="logo">ICit</div>
+    <div class="version">v0.8</div>
+  </div>
+  <div class="brand">Empiricus Design — Rational by Nature</div>
+</div>
+
+<!-- ROW 1: Overview + Platform + Mouse + Load -->
+<div class="grid-2">
+
+  <div class="card">
+    <div class="card-title">Overview</div>
+    <p>Offline single-file 3D viewer for IFC, OBJ, STL, PLY, and glTF/glb models. No install, no internet, no data leaves your machine — drop the HTML file anywhere and open it in a browser.</p>
+    <p style="margin-top:6px">Formats: <span class="hi">IFC4 · OBJ · STL · PLY · glTF/glb</span></p>
+    <p>FOSS stack: three.js (MIT) + web-ifc (MPL-2.0)</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Platform Compatibility</div>
+    <div class="def-grid">
+      <span class="def-term" style="color:var(--green)">Windows</span>      <span class="def-desc">Full support — double-click HTML to open in Chrome, Edge, or Firefox</span>
+      <div class="def-sep"></div>
+      <span class="def-term" style="color:var(--green)">macOS</span>        <span class="def-desc">Full support — double-click in Finder, opens in Safari, Chrome, or Firefox</span>
+      <div class="def-sep"></div>
+      <span class="def-term" style="color:var(--green)">Chromebook</span>   <span class="def-desc">Full support — open HTML file in Chrome. Touchpad works via standard mouse events</span>
+      <div class="def-sep"></div>
+      <span class="def-term" style="color:var(--green)">Android</span>      <span class="def-desc">Local files openable in Chrome for Android — touch support under testing</span>
+      <div class="def-sep"></div>
+      <span class="def-term" style="color:#c05040">iOS / iPadOS</span> <span class="def-desc">Not supported. Apple blocks local file:// access on all iOS browsers. Use a Mac, Windows PC, or Chromebook instead</span>
+    </div>
+  </div>
+    <ol class="steps">
+      <li>Drop a file onto the viewport <span class="muted">— or —</span></li>
+      <li>Click <span class="badge">📂 Open</span> in the toolbar</li>
+      <li>IFC units (m/mm) and True North are read automatically from the file</li>
+      <li>Status bar confirms element count and units</li>
+    </ol>
+    <p style="margin-top:7px;font-size:10px;color:var(--muted)">Large IFC files may take a few seconds to stream. A second drop replaces the current model.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Mouse — Default (Revit/Navisworks)</div>
+    <div class="mouse-row"><span class="mouse-btn">Left</span>   <span class="mouse-desc">Zoom in/out</span></div>
+    <div class="mouse-row"><span class="mouse-btn">Middle</span> <span class="mouse-desc">Orbit / rotate</span></div>
+    <div class="mouse-row"><span class="mouse-btn">Right</span>  <span class="mouse-desc">Pan</span></div>
+    <div class="mouse-row"><span class="mouse-btn">Click</span>  <span class="mouse-desc">Select element</span></div>
+    <div class="mouse-row"><span class="mouse-btn">Ctrl+Click</span> <span class="mouse-desc">Add/remove from selection</span></div>
+    <p style="margin-top:6px;font-size:10px;color:var(--muted)">Mouse buttons reassignable in <span class="badge">⚙</span> Settings.</p>
+  </div>
+
+</div>
+
+<!-- ROW 2: Keyboard shortcuts (wide) -->
+<div class="grid-2">
+
+  <div class="card">
+    <div class="card-title">Keyboard Shortcuts — Navigation &amp; Display</div>
+    <div class="kb-grid">
+      <div class="kb-group">View</div>
+      <span class="kb">F</span>       <span class="kb-desc">Fit model to screen</span>
+      <span class="kb">Ortho</span>   <span class="kb-desc">Toggle Ortho / Perspective (toolbar button)</span>
+
+      <div class="kb-group">Shadows</div>
+      <span class="kb">R</span>       <span class="kb-desc">Enter shadow mode at 512px live preview</span>
+      <span class="kb">R <span style="font-size:9px;color:var(--muted)">(in shadow mode)</span></span>
+                                      <span class="kb-desc">One-off render at selected resolution → clipboard. Returns to 512px preview</span>
+
+      <div class="kb-group">Visibility — Blender convention</div>
+      <span class="kb">H</span>       <span class="kb-desc">Hide selected elements</span>
+      <span class="kb">Shift+H</span> <span class="kb-desc">Isolate selected — hide everything else</span>
+      <span class="kb">Alt+H</span>   <span class="kb-desc">Unhide all — restore full model visibility</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Keyboard Shortcuts — Selection</div>
+    <div class="kb-grid">
+      <div class="kb-group">Standard</div>
+      <span class="kb">Click</span>       <span class="kb-desc">Select single element, clear previous</span>
+      <span class="kb">Ctrl+Click</span>  <span class="kb-desc">Add or remove element from selection</span>
+      <span class="kb">Shift+Click</span> <span class="kb-desc">Range select within same IFC class in tree</span>
+
+      <div class="kb-group">Blender convention</div>
+      <span class="kb">A</span>       <span class="kb-desc">Select all visible elements. Press again to deselect all</span>
+      <span class="kb">Ctrl+I</span>  <span class="kb-desc">Invert selection — select everything not currently selected</span>
+
+      <div class="kb-group">Nigel special</div>
+      <span class="kb">L</span>       <span class="kb-desc">Select all elements of the same IfcClass as the current selection. E.g. one window → all windows. Best shortcut for QTO — select one, L, 📤 CSV</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ROW 3: QTO Workflow + CSV Provenance + Lighting -->
+<div class="grid">
+
+  <div class="card">
+    <div class="card-title">QTO Workflow</div>
+    <ol class="steps">
+      <li>Load your IFC file</li>
+      <li>Click any element of the class you want (e.g. a window)</li>
+      <li>Press <span class="kb">L</span> — selects all of that IfcClass</li>
+      <li>Or Ctrl+click the class label in the tree to add/remove whole classes</li>
+      <li>Click <span class="badge">📤 CSV</span> — exports Psets and Quantities for the full selection</li>
+    </ol>
+    <p style="margin-top:7px">Multiple classes: select elements from several classes, then <span class="kb">L</span> expands each to the full class. Or Ctrl+click multiple class labels in the tree.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">CSV — Quantity Provenance</div>
+    <p style="margin-bottom:8px">Quantities in the CSV carry a prefix indicating who produced the number. A QS should apply different levels of trust to each.</p>
+    <table class="prov-table">
+      <thead>
+        <tr>
+          <th>Column prefix</th>
+          <th>Source</th>
+          <th>Trust</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-ifc">Pset_WallCommon.<br>Height (m)</span></td>
+          <td>BIM author — stored in <code style="font-size:10px">IfcElementQuantity</code> in the file</td>
+          <td style="color:#888;font-size:10px">Per BIM author's discipline and LOD</td>
+        </tr>
+        <tr>
+          <td><span class="tag-calc">CALC.<br>Perimeter (m)</span></td>
+          <td>Derived by ICit — e.g. perimeter computed as <code style="font-size:10px">(2×H)+(2×W)</code> when absent from file</td>
+          <td style="color:#888;font-size:10px">Geometric approximation — cross-check against BIM values</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:7px;font-size:10px;color:var(--muted)">In the Properties panel: <span class="tag-ifc">★</span> = IFC-authored quantity&ensp;·&ensp;<span class="tag-calc">⚙</span> = viewer-calculated</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Lighting &amp; Shadows</div>
+    <p>Click <span class="badge">☀</span> to open the Lighting panel.</p>
+    <div class="def-grid" style="margin-top:7px">
+      <span class="def-term">Azimuth / Altitude</span> <span class="def-desc">Sun direction. Type a number or drag the slider. Updates shadow map live when in shadow mode</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Shadow soft</span>   <span class="def-desc">0 = hard-edged · 8 = wide soft penumbra. Free — no performance cost</span>
+      <div class="def-sep"></div>
+      <span class="def-term">R render res</span>  <span class="def-desc">512 fast · 1024 good · 2048 sharp · 4096 max. Used for the <span class="kb">R</span> one-off render only</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Sky dome off</span>  <span class="def-desc">PNG exports carry a transparent background — paste directly onto any slide colour</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ROW 4: Tree + Section + Export CSV columns -->
+<div class="grid">
+
+  <div class="card">
+    <div class="card-title">Model Tree</div>
+    <div class="def-grid">
+      <span class="def-term">▶ Class label</span>  <span class="def-desc">Click to expand/collapse. Click the label text to select the whole class</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Ctrl+click label</span> <span class="def-desc">Add or remove entire class from selection</span>
+      <div class="def-sep"></div>
+      <span class="def-term">👁 eye button</span>   <span class="def-desc">Toggle visibility for that element or whole class</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Amber badge [3]</span> <span class="def-desc">Collapsed group contains 3 selected elements</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Viewport click</span>  <span class="def-desc">Auto-expands the group in the tree and scrolls to the selected item</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Section Planes</div>
+    <p>Three dual-slider section planes — X (left/right), Y (depth), Z (height/plan). Enable each axis with its toggle button.</p>
+    <p style="margin-top:6px">Both sliders on one axis clip from opposite sides, letting you isolate a floor slab, a zone, or a single storey by dragging inward from each end.</p>
+    <p style="margin-top:6px;font-size:10px;color:var(--muted)">Section ranges are reset automatically each time a model loads.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">CSV Column Guide</div>
+    <div class="def-grid">
+      <span class="def-term">ExpressID</span>      <span class="def-desc">Unique integer ID for the element within this IFC file</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Type</span>            <span class="def-desc">IFC class e.g. IFCWINDOW, IFCWALL</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Name / LongName</span><span class="def-desc">Element name and long name as set by BIM author</span>
+      <div class="def-sep"></div>
+      <span class="def-term">GlobalId</span>        <span class="def-desc">IFC globally unique ID — use for cross-referencing with BIM model</span>
+      <div class="def-sep"></div>
+      <span class="def-term">Pset_*.* </span>       <span class="def-desc">Property value from a named Pset e.g. <span class="mono">Pset_WallCommon.IsExternal</span></span>
+      <div class="def-sep"></div>
+      <span class="def-term">Pset_*.* (m)</span>   <span class="def-desc">IFC-authored quantity — pure numeric, unit in header for Excel SUM()</span>
+      <div class="def-sep"></div>
+      <span class="def-term">CALC.* (m)</span>      <span class="def-desc">Viewer-derived quantity — geometric approximation, not from BIM file</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- QTO LIMITATIONS — full width warning card -->
+<div class="grid-wide">
+  <div class="card" style="border-color:#6a3a2a;background:#1a1210">
+    <div class="card-title" style="color:#e06040">⚠ QTO Accuracy — Read Before Using Quantities for Cost Planning</div>
+
+    <div class="grid-2" style="margin-bottom:0">
+
+      <div>
+        <p style="margin-bottom:8px"><strong style="color:var(--text)">ICit is a quantity <em>reader</em>, not a quantity <em>measurer</em>.</strong> It does not interrogate mesh geometry to calculate dimensions. Every value in the CSV — including CALC columns — is derived arithmetically from data already in the IFC file, authored by the BIM designer.</p>
+
+        <p style="font-size:10px;color:var(--muted);margin-bottom:8px">This means ICit cannot detect modelling errors, cannot independently verify the BIM author's numbers, and cannot produce quantities that are certifiable without reference to the source BIM model.</p>
+
+        <div class="card-title" style="color:#888;font-size:9px;margin-top:4px">What Pset columns are</div>
+        <p>Values under <span class="mono">Pset_WallCommon.Height (m)</span> and similar columns are read directly from <code style="font-size:10px">IfcElementQuantity</code> entities that the BIM authoring tool wrote into the file. Their accuracy depends entirely on the BIM author's modelling discipline, the Level of Development of the model, and the export settings used. ICit passes these through without modification.</p>
+
+        <div class="card-title" style="color:#888;font-size:9px;margin-top:8px">What CALC columns are</div>
+        <p><span class="mono" style="color:var(--green)">CALC.Perimeter (m)</span> is currently the only viewer-derived quantity. It is computed as <span class="mono">(2×Height) + (2×Width)</span> using the BIM-authored Height and Width values when the exporter did not supply a perimeter directly. It is only geometrically correct for rectangular elements. It is wrong for L-shaped walls, tapered elements, irregular profiles, and any element where width varies. If the BIM author's H or W is wrong, CALC.Perimeter is wrong.</p>
+      </div>
+
+      <div>
+        <div class="card-title" style="color:#888;font-size:9px">What ICit cannot do</div>
+        <table class="prov-table" style="margin-bottom:10px">
+          <thead><tr><th>Capability</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Measure actual mesh dimensions from geometry</td>
+              <td style="color:#c05040;font-size:10px">✗ Not implemented</td>
+            </tr>
+            <tr>
+              <td>Calculate surface area from mesh triangles</td>
+              <td style="color:#c05040;font-size:10px">✗ Not implemented</td>
+            </tr>
+            <tr>
+              <td>Calculate volume from closed mesh geometry</td>
+              <td style="color:#c05040;font-size:10px">✗ Not implemented</td>
+            </tr>
+            <tr>
+              <td>Deduct openings from gross wall area</td>
+              <td style="color:#c05040;font-size:10px">✗ Not implemented</td>
+            </tr>
+            <tr>
+              <td>Detect modelling errors or missing geometry</td>
+              <td style="color:#c05040;font-size:10px">✗ Not possible from display viewer</td>
+            </tr>
+            <tr>
+              <td>Produce auditable or certifiable QTO</td>
+              <td style="color:#c05040;font-size:10px">✗ Not the purpose of this tool</td>
+            </tr>
+            <tr>
+              <td>Read and display BIM-authored Pset quantities</td>
+              <td style="color:#5a9060;font-size:10px">✓ Core function</td>
+            </tr>
+            <tr>
+              <td>Cross-check quantities across element classes</td>
+              <td style="color:#5a9060;font-size:10px">✓ Via L + 📤 CSV workflow</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card-title" style="color:#888;font-size:9px">Recommended use</div>
+        <p style="margin-bottom:5px">Use ICit CSV output for <strong style="color:var(--text)">preliminary review, cross-checking, and coordination</strong> — not for certified cost plans or contract documentation. For certified QTO, process the IFC file through a dedicated QTO tool (CostX, Buildsoft, or similar) that performs auditable geometric analysis.</p>
+        <p style="font-size:10px;color:var(--muted)">A discrepancy between a <span class="mono">Pset_*.Area (m2)</span> value and what you'd expect from the model is a flag to raise with the BIM author — not something ICit can resolve.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">Single-file · offline-first · FOSS — three.js MIT · web-ifc MPL-2.0 &nbsp;&nbsp;<span style="color:#c05040;font-style:normal;font-weight:600">iOS not supported</span> — Apple blocks local file:// access on iPhone and iPad</div>
+  <div class="footer-right">ICit v0.9 · Empiricus Design · github.com/4nigel</div>
+</div>
+
+</body>
+</html>
